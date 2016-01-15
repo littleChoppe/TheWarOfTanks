@@ -19,14 +19,14 @@ public class shell : MonoBehaviour {
 	{
 		//爆炸效果
 		GameObject obj = Instantiate (explosionEffect, transform.position, transform.rotation) as GameObject;
-		Destroy (gameObject);
+		Destroy (gameObject);		//销毁炮弹
 		Destroy (obj, explosionTimeOff);	//一段时间后把obj销毁
 
 		//爆炸力场
 
 		//子弹碰撞捉到的碰撞器，第一个参数是碰撞位置，第二个参数是捉碰撞器的半径,这个函数返回碰撞器数组
-		Collider[] colls = Physics.OverlapSphere (transform.position, explosionRadius, enemy);	//最后一个参数获得层级，即只获取敌人的碰撞器
-		Debug.Log (colls.Length);
+		//最后一个参数获得层级，即只获取敌人的碰撞器
+		Collider[] colls = Physics.OverlapSphere (transform.position, explosionRadius, enemy);	
 		if (colls.Length > 0) {
 			for(int i=0; i<colls.Length; i++)
 			{
@@ -36,6 +36,7 @@ public class shell : MonoBehaviour {
 				if (r)
 					//AddExplosionForce(爆炸力， 爆炸位置， 爆炸半径);
 					r.AddExplosionForce(explosionForce, transform.position, explosionRadius);
+				//对有生命的造成伤害
 				unit u = colls[i].GetComponent<unit>();
 				if (u)
 					u.applyDamage(damage);

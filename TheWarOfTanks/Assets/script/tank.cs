@@ -9,6 +9,7 @@ public class tank : unit {
 
 	void Start()
 	{
+		base.Start ();
 		tw = GetComponent<tankWeapon> ();
 		tw.Init (team); //判断是否为敌人
 	}
